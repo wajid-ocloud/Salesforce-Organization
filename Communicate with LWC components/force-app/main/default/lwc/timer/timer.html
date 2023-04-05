@@ -1,0 +1,23 @@
+<template>
+	<lightning-card title="Input Form">
+		<div class="slds-grid slds-wrap slds-gutters">
+			<div class="slds-col">
+				<lightning-input label="Hours" name="hours" value={hours} onchange={handleInputChange}>
+				</lightning-input>
+			</div>
+			<div class="slds-col">
+				<lightning-input label="Minutes" name="minutes" value={minutes} onchange={handleInputChange}>
+				</lightning-input>
+			</div>
+			<div class="slds-col">
+				<lightning-input label="Seconds" name="seconds" value={seconds} onchange={handleInputChange}></lightning-input>
+			</div>
+			<div class="slds-col slds-align-bottom">
+				<lightning-button label="Start" variant="brand" onclick={handleStart}></lightning-button>
+			</div>
+			<div class="slds-col">
+				<lightning-button label="Reset" variant="brand" onclick={handleReset}></lightning-button>
+			</div>
+		</div>
+	</lightning-card>
+</template>
