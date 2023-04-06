@@ -1,3 +1,28 @@
 <template>
-    
+  <div class="timer-container">
+    <h1 class="timer-label">{timeString}</h1>
+    <div class="timer-buttons">
+      <lightning-button
+        variant="outline-brand"
+        label="Start"
+        title="Start"
+        onclick={handleStart}
+        disabled={isRunning}
+      ></lightning-button>
+      <lightning-button
+        variant="outline-brand"
+        label="Pause"
+        title="Pause"
+        onclick={handlePause}
+        disabled={isNotRunning}
+      ></lightning-button>
+      <lightning-button
+        variant="outline-brand"
+        label="Reset"
+        title="Reset"
+        onclick={handleReset}
+        disabled={isRunning}
+      ></lightning-button>
+    </div>
+  </div>
 </template>
