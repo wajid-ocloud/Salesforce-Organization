@@ -17,18 +17,6 @@ export default class Timer extends LightningElement {
     return `${hours}:${minutes}:${seconds}`;
   }
 
-  get isValidInput() {
-    return (
-      (this.hours > 0 || this.minutes > 0 || this.seconds > 0) &&
-      (this.hours < 1000 &&
-        this.minutes < 60 &&
-        this.seconds < 60 &&
-        this.hours >= 0 &&
-        this.minutes >= 0 &&
-        this.seconds >= 0)
-    );
-  }
-
   handleHoursChange(event) {
     this.hours = parseInt(event.target.value);
     if(this.hours>0)this.isRunning = false;
