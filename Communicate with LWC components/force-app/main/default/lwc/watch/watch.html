@@ -1,7 +1,13 @@
 <template>
-    <lightning-card title="Watch">
-        <c-timer >
-
-        </c-timer>
-    </lightning-card>
+	<lightning-card title="Watch">
+		<lightning-layout>
+			<lightning-layout-item flexibility="auto" padding="around-small">
+				<c-timer>
+				</c-timer>
+			</lightning-layout-item>
+			<lightning-layout-item flexibility="auto" padding="around-small">
+				<c-stopwatch></c-stopwatch>
+			</lightning-layout-item>
+		</lightning-layout>
+	</lightning-card>
 </template>

@@ -1,28 +1,87 @@
-import { LightningElement } from 'lwc';
+import { LightningElement, track } from 'lwc';
 
 export default class Timer extends LightningElement {
+  @track hours = 0;
+  @track minutes = 0;
+  @track seconds = 0;
+  @track time = 0;
+  @track isRunning = true;
+  @track isReset = false;
+  @track isNotRunning = true;
+  interval;
 
-  hours = 0;
-  minutes = 0;
-  seconds = 0;
+  get timeString() {
+    const hours = this.hours.toString().padStart(2, '0');
+    const minutes = this.minutes.toString().padStart(2, '0');
+    const seconds = this.seconds.toString().padStart(2, '0');
+    return `${hours}:${minutes}:${seconds}`;
+  }
 
-  handleChangeHours(event){
+  get isValidInput() {
+    return (
+      (this.hours > 0 || this.minutes > 0 || this.seconds > 0) &&
+      (this.hours < 1000 &&
+        this.minutes < 60 &&
+        this.seconds < 60 &&
+        this.hours >= 0 &&
+        this.minutes >= 0 &&
+        this.seconds >= 0)
+    );
+  }
+
+  handleHoursChange(event) {
     this.hours = parseInt(event.target.value);
+    if(this.hours>0)this.isRunning = false;
+    else this.isRunning = true;
   }
-  handleChangeMinutes(event){
+
+  handleMinutesChange(event) {
     this.minutes = parseInt(event.target.value);
+    if(this.minutes>0)this.isRunning = false;
+    else this.isRunning = true;
   }
-  handleChangeSeconds(event){
+
+  handleSecondsChange(event) {
     this.seconds = parseInt(event.target.value);
+    if(this.seconds>0)this.isRunning = false;
+    else this.isRunning = true;
   }
 
-  handleStart(event){
-    this.seconds = this.seconds + 3600*this.hours + 60*this.minutes;
-    console.log(this.seconds); //
+  handleStart() {
+    this.isRunning = true;
+    this.isReset = true;
+    this.isNotRunning = false;
+    this.time = this.hours * 60 * 60 + this.minutes * 60 + this.seconds;
+    this.interval = setInterval(() => {
+      if (this.time <= 0) {
+        this.handleReset();
+        return;
+      }
+      this.time--;
+      const hours = Math.floor(this.time / 3600);
+      const minutes = Math.floor((this.time - hours * 3600) / 60);
+      const seconds = this.time - hours * 3600 - minutes * 60;
+      this.hours = hours;
+      this.minutes = minutes;
+      this.seconds = seconds;
+    }, 1000);
   }
 
-  handleReset(event){
-    
+  handlePause() {
+    this.isRunning = false;
+    this.isReset = false;
+    this.isNotRunning = true;
+    clearInterval(this.interval);
   }
 
+  handleReset() {
+    this.isRunning = true;
+    this.isReset = false;
+    this.isNotRunning = true;
+    clearInterval(this.interval);
+    this.hours = 0;
+    this.minutes = 0;
+    this.seconds = 0;
+    this.time = 0;
+  }
 }
