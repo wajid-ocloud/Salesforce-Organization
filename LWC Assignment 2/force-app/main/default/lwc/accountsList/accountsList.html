@@ -1,0 +1,40 @@
+<template>
+    <lightning-card>
+        <template if:true={accounts.data}>
+            <template if:true={accounts.data}>
+            <lightning-input type="search"
+                onchange={handleSearchTermChange}
+                variant="label-hidden"
+                class="slds-var-m-bottom_small"
+                label="Search"
+                placeholder="Search for Accounts"
+                value={searchTerm}>
+			</lightning-input>
+
+            <lightning-layout multiple-rows="true" pull-to-boundary="small">
+                <template for:each={accounts.data} for:item="account">
+                    <lightning-layout-item key={account.Id} >
+                        <c-list-view account={account}></c-list-view>
+                    </lightning-layout-item>
+                </template>
+			</lightning-layout>
+            <!-- No Accounts found -->
+            <template if:false={hasResults}>
+                <div class="slds-align_absolute-center slds-var-m-vertical_small">
+                    No Accounts found for this search term
+                </div>
+            </template>
+        </template>
+
+        <lightning-datatable
+            key-field="Id"
+            data={accounts.data}
+            columns={columns}
+        >
+        </lightning-datatable>
+        </template>
+        <template if:true={errors}>
+            <p>{errors}</p>
+        </template>
+    </lightning-card>
+</template>

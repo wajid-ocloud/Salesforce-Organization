@@ -1,23 +1,23 @@
 <template>
-	<lightning-card title="Input Form">
-		<div class="slds-grid slds-wrap slds-gutters">
-			<div class="slds-col">
-				<lightning-input label="Hours" name="hours" value={hours} onchange={handleInputChange}>
-				</lightning-input>
-			</div>
-			<div class="slds-col">
-				<lightning-input label="Minutes" name="minutes" value={minutes} onchange={handleInputChange}>
-				</lightning-input>
-			</div>
-			<div class="slds-col">
-				<lightning-input label="Seconds" name="seconds" value={seconds} onchange={handleInputChange}></lightning-input>
-			</div>
-			<div class="slds-col slds-align-bottom">
-				<lightning-button label="Start" variant="brand" onclick={handleStart}></lightning-button>
-			</div>
-			<div class="slds-col">
-				<lightning-button label="Reset" variant="brand" onclick={handleReset}></lightning-button>
-			</div>
-		</div>
-	</lightning-card>
+  <div class="timer-container">
+    <h1 class="timer-label">{timeString}</h1>
+    <div class="timer-input">
+      <div class="input-container">
+        <lightning-input type="number" label="Hours" min="0" max="999" step="1" value={hours}
+          onchange={handleHoursChange} disabled={isReset}></lightning-input>
+        <lightning-input type="number" label="Minutes" min="0" max="59" step="1" value={minutes}
+          onchange={handleMinutesChange} disabled={isReset}></lightning-input>
+        <lightning-input type="number" label="Seconds" min="0" max="59" step="1" value={seconds}
+          onchange={handleSecondsChange} disabled={isReset}></lightning-input>
+      </div>
+      <div class="timer-buttons">
+        <lightning-button variant="outline-brand" label="Start" title="Start" onclick={handleStart}
+          disabled={isRunning}></lightning-button>
+        <lightning-button variant="outline-brand" label="Pause" title="Pause" onclick={handlePause}
+          disabled={isNotRunning}></lightning-button>
+        <lightning-button variant="outline-brand" label="Reset" title="Reset" onclick={handleReset} disabled={isReset}>
+        </lightning-button>
+      </div>
+    </div>
+  </div>
 </template>

@@ -1,7 +1,52 @@
 <template>
-    <lightning-card title="Watch">
-        <c-timer >
+	<lightning-card title="Watch">
+		<div class="timer-container">
+			<template if:true={isDisplayTimer}>
+				<div class="timer-display" onclick={handleShowInput}>
+				<span class="timer-digits" id="hour1">{hour1}</span>
+				<span class="timer-digits" id="hour2">{hour2}</span>
+				<span class="timer-subscript" >h</span>
+				<span class="timer-digits" id="min1">{min1}</span>
+				<span class="timer-digits" id="min2">{min2}</span>
+				<span class="timer-subscript" >m</span>
+				<span class="timer-digits" id="sec1">{sec1}</span>
+				<span class="timer-digits" id="sec2">{sec2}</span>
+				<span class="timer-subscript" >s</span>
+			</div>
+			</template>
+			<template if:false={isDisplayTimer}>
+				<div class='timer-input' onkeydown={handleKeyDown} tabindex="0">
+				<span class="input-digits" id="inpHour1">{hour1}</span>
+				<span class="input-digits" id="inpHour2">{hour2}</span>
+				<span class="input-subscript" >h</span>
+				<span class="input-digits" id="inpMin1">{min1}</span>
+				<span class="input-digits" id="inpMin2">{min2}</span>
+				<span class="input-subscript" >m</span>
+				<span class="input-digits" id="inpSec1">{sec1}</span>
+				<span class="input-digits" id="inpMec2">{sec2}</span>
+				<span class="input-subscript" >s</span>
+			</div>
+			</template>
+			
 
-        </c-timer>
-    </lightning-card>
+			<div class="timer-input">
+				<div class="input-container">
+					<lightning-input type="number" label="Hours" min="0" max="999" step="1" value={hours}
+					onchange={handleHoursChange} disabled={isReset}></lightning-input>
+					<lightning-input type="number" label="Minutes" min="0" max="59" step="1" value={minutes}
+					onchange={handleMinutesChange} disabled={isReset}></lightning-input>
+					<lightning-input type="number" label="Seconds" min="0" max="59" step="1" value={seconds}
+					onchange={handleSecondsChange} disabled={isReset}></lightning-input>
+				</div>
+				<div class="timer-buttons">
+					<lightning-button variant="outline-brand" label="Start" title="Start" onclick={handleStart}
+					disabled={isRunning}></lightning-button>
+					<lightning-button variant="outline-brand" label="Pause" title="Pause" onclick={handlePause}
+					disabled={isNotRunning}></lightning-button>
+					<lightning-button variant="outline-brand" label="Reset" title="Reset" onclick={handleReset} disabled={isReset}>
+					</lightning-button>
+				</div>
+			</div>
+		</div>
+	</lightning-card>
 </template>
